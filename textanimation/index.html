@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style>
+		.boxA {
+			display:flex;
+			width:500px;
+			border:1px solid;
+			padding:10px;
+		  
+		}
+		.item {
+		    border:1px solid red;
+		    padding:5px 10px;
+		    cursor: pointer;
+		    margin:0 15px;
+		    
+		  }
+		  .item.hidden {
+		      visibility: hidden;
+		    }
+		.boxB {
+		  display:flex;
+		  width:500px;
+		  border:1px solid;
+		  padding:10px;
+		  margin-top:20px;
+		 
+		} .next0word {
+		    border:1px solid red;
+		    padding:5px 10px;
+		    cursor: pointer;
+		    margin:0 15px;
+		  }
+	</style>
+</head>
+<body>
+	<div class="boxA">
+		<div class="item">Item 1</div>
+		<div class="item">Item 2</div>
+		<div class="item">Item 3</div>
+		<div class="item">Item 4</div>
+	</div>
+	<div class="move"></div>
+	<div class="boxB">
+	  
+	</div>
+</body>
+</html>
+
+<script>
+	const listItem = document.querySelectorAll('.item');
+	const boxB = document.querySelector('.boxB');
+	const move = document.querySelector('.move');
+	listItem.forEach(function(btn){
+  	btn.addEventListener('click',function(e){
+    move.classList.add('bh');
+    let left = this.offsetLeft;
+    let top = this.offsetTop;
+    let divNext = e.target.nextElementSibling;
+    console.log(divNext);
+    if(divNext === null)
+      {
+        divNext = this;
+      }
+    this.classList.add('hidden');
+    move.style.top = top + 'px';
+    move.style.left = left + 'px';
+    
+    
+    
+    // xử lý div move
+    move.textContent = this.textContent;
+    
+    // tạo div có nội dung ở 1 div mới
+    let content = this.textContent;
+    let div = document.createElement('div');
+    div.textContent = content;
+    div.classList.add('next0word');
+    boxB.appendChild(div);
+    
+    move.style.top = div.offsetTop + 'px';
+    move.style.left = div.offsetLeft + 'px';
+    
+    setTimeout(() => {
+      div.classList.add('ht');
+      move.style.top = divNext.offsetTop + 'px';
+      move.style.left = divNext.offsetLeft + 'px';
+    },1000);
+  })
+});
+
+
+</script>
